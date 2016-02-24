@@ -1,0 +1,118 @@
+Ce code fonctionne avec un fichier " test2.csv" qui est en réalité simplement le copier / coller du fichier loto, mais seulement avec 
+les nombres et pas tt les colonnes useless.
+Si tu veux t'y mettre maintenant, suffit de modifier la fonction modifier_chaine et c'est ready je pense.
+
+Regarde en bas, tu y verras les résultats que j'ai eu avec tt les tirages .
+
+def main():
+    
+    
+    f = open("test2.csv") # ouverture du fichier
+    liste = separation(f) # appel de la fonction séparation
+    taille = len(liste)
+    
+    liste_resultat = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    # liste qui à chaque itération va récuperer les données et 
+    # les garder en mémoire . L'indice correspond à la boule et la valeur 
+    # contenue correspond au nombre de fois où cette boulle est tombée.
+    
+    
+
+    for i in range(1,taille): # parcours la liste contenant toutes les données du tableau
+        chaine = liste[i]
+        liste_nbr = modification_liste(chaine)
+        analyse(liste_nbr, liste_resultat)
+    
+
+    print("Lors de {} tirages : ".format(taille)) # affichage des données
+    for k in range(1,50):
+        print(" La boule n°{} est tombée {} fois.".format(k,liste_resultat[k] ))
+
+        
+    
+    
+
+def separation(f):  # Parcours tout le fichier et le transmet sous forme de liste
+    liste = []      # plus facile à manipuler.
+    for ligne in f.readlines():
+        liste.append(ligne)
+    return liste
+    
+def modification_liste(chaine):    # Recupere les données et ne garde que la partie interessante :
+    chaine2 = chaine.split(',')    # les numéros des boules
+    a = chaine2[5]
+    a = str(a[0] + a[1])
+    chaine2[5] = a
+    return chaine2
+
+
+
+
+def analyse(liste_nbr, liste_resultat): # Parcours les résultats et les ajoute dans la liste
+    for i in range(len(liste_nbr)):
+        nbr = int(liste_nbr[i])
+        liste_resultat[nbr] += 1
+        
+    return liste_resultat
+    
+
+main()
+    
+    
+
+
+
+résultats avec tt les tirages :
+
+Lors de 4859 tirages : 
+ La boule n°1 est tombée 612 fois.
+ La boule n°2 est tombée 580 fois.
+ La boule n°3 est tombée 574 fois.
+ La boule n°4 est tombée 623 fois.
+ La boule n°5 est tombée 584 fois.
+ La boule n°6 est tombée 606 fois.
+ La boule n°7 est tombée 616 fois.
+ La boule n°8 est tombée 587 fois.
+ La boule n°9 est tombée 595 fois.
+ La boule n°10 est tombée 596 fois.
+ La boule n°11 est tombée 568 fois.
+ La boule n°12 est tombée 585 fois.
+ La boule n°13 est tombée 580 fois.
+ La boule n°14 est tombée 586 fois.
+ La boule n°15 est tombée 595 fois.
+ La boule n°16 est tombée 637 fois.
+ La boule n°17 est tombée 564 fois.
+ La boule n°18 est tombée 574 fois.
+ La boule n°19 est tombée 600 fois.
+ La boule n°20 est tombée 614 fois.
+ La boule n°21 est tombée 585 fois.
+ La boule n°22 est tombée 564 fois.
+ La boule n°23 est tombée 586 fois.
+ La boule n°24 est tombée 591 fois.
+ La boule n°25 est tombée 581 fois.
+ La boule n°26 est tombée 599 fois.
+ La boule n°27 est tombée 608 fois.
+ La boule n°28 est tombée 577 fois.
+ La boule n°29 est tombée 560 fois.
+ La boule n°30 est tombée 601 fois.
+ La boule n°31 est tombée 609 fois.
+ La boule n°32 est tombée 591 fois.
+ La boule n°33 est tombée 548 fois.
+ La boule n°34 est tombée 653 fois.
+ La boule n°35 est tombée 604 fois.
+ La boule n°36 est tombée 622 fois.
+ La boule n°37 est tombée 604 fois.
+ La boule n°38 est tombée 640 fois.
+ La boule n°39 est tombée 615 fois.
+ La boule n°40 est tombée 597 fois.
+ La boule n°41 est tombée 584 fois.
+ La boule n°42 est tombée 596 fois.
+ La boule n°43 est tombée 586 fois.
+ La boule n°44 est tombée 588 fois.
+ La boule n°45 est tombée 620 fois.
+ La boule n°46 est tombée 601 fois.
+ La boule n°47 est tombée 571 fois.
+ La boule n°48 est tombée 579 fois.
+ La boule n°49 est tombée 612 fois.
+
+Tu dois trouver pareil avec tt les colonnes ( et pas que celles des boules )
