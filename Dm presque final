@@ -1,0 +1,68 @@
+J'ai une erreur chelou quand je test avec le fichier "lolo.csv" mais sinon ça tourne :
+
+Faut encore faire la présentation mais osef 
+
+# -*- coding: utf-8 -*-
+"""
+Dm d'info de Charnay Thibaud et Gerard Gabriel sur l'analyse des résultats du Loto.
+
+Tous droits réservés.
+"""
+
+
+ 
+
+def separation(f):  # Parcours tout le fichier et le transmet sous forme de liste
+    liste = []      # plus facile à manipuler.
+    for ligne in f.readlines():
+        liste.append(ligne)
+    return liste
+    
+def modification_liste(chaine):    # Conserve uniquement les 6 colonnes des
+    chaine2 = chaine.split(',')    # numéros de boule parmis les 40+ colonnes.
+    chaine3 = chaine2[5:11]
+
+    return chaine3
+
+
+
+
+def analyse(liste_nbr, liste_resultat): # Parcours les résultats et les ajoute dans la liste
+    for i in range(len(liste_nbr)):
+        nbr = int(liste_nbr[i])
+        liste_resultat[nbr] += 1
+        
+    return liste_resultat
+    
+
+
+def main():
+    
+    
+    f = open("loto.csv") # ouverture du fichier
+    liste = separation(f) # appel de la fonction séparation
+    taille = len(liste)
+    
+    liste_resultat = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    # liste qui à chaque itération va récuperer les données et 
+    # les garder en mémoire . L'indice correspond à la boule et la valeur 
+    # contenue correspond au nombre de fois où cette boulle est tombée.
+    
+    
+
+    for i in range(1,taille): # parcours la liste contenant toutes les données du tableau
+        chaine = liste[i] 
+        liste_nbr = modification_liste(chaine) # ne conserve que les 6 colonnes voulues
+        analyse(liste_nbr, liste_resultat) # ajoute à la liste ci dessus les résultats
+    
+
+    print("Lors de {} tirages : ".format(taille)) # affichage des données
+    for k in range(1,50):                           # dans le format demandé.
+        print(" La boule n°{} est tombée {} fois.".format(k,liste_resultat[k] ))
+
+        
+    
+   
+main()
+    
+    
