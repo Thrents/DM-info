@@ -1,0 +1,163 @@
+# -*- coding: utf-8 -*-
+
+"""
+Dm d'info de Charnay Thibaud et Gerard Gabriel sur l'analyse des résultats du Loto.
+
+Tous droits réservés.
+"""
+
+
+
+# Definition des fonctions du programme :
+ 
+
+def separation(f):
+    """
+    Cette fonction parcours l'intégralité du fichier et retourne  une
+    liste. Chaque indice k de la liste correspond donc à la ligne (k+1) du
+    fichier loto.csv sous forme d'une chaine de caracteres.
+    
+    Paramètre :
+    -----------
+    
+    f : str
+    fichier à lire.
+    
+    Retour :
+    --------
+    
+    liste : list
+    liste des chaines de caracteres ( une par liste du fichier )
+    
+    """
+    liste = []      
+    for ligne in f.readlines():
+        liste.append(ligne)
+    return liste
+    
+
+def modification_liste(chaine):   
+    """
+     Cette fonction reçoit en argument une chaine de caracteres et en fait 
+     une liste dont chaque element correspond à une colonne du fichier :
+     En effet le format .csv sépare les colonnes par un caractère spécifique ,
+     ici le " ; ".
+     Une fois les colonnes séparés, la fonction ne retourne que les 6 colonnes
+     voulues : celles contenant les résultats des tirages du loto.
+     
+     Parametre :
+     -----------
+     
+     chaine : str
+     Chaine de caracteres correspondant a une ligne du fichier.
+     
+     Retour :
+     --------
+     
+     chaine3 : list
+     Liste de 6 elements contenant les 6 tirages du loto.
+     
+    
+    """
+    chaine2 = chaine.split(';')     
+    chaine3 = chaine2[5:11]
+
+    return chaine3
+
+
+def analyse(liste_nbr, liste_resultat): 
+    """
+    Cette fonction reçoit en argument une liste ( L1 ) dont les elements sont
+    des entiers compris entre 1 et 49 ainsi qu'une liste de 50 elements ( L2 ),
+    initialement tous égaux à 0. 
+    Pour chaque element k de L1, la fonction incrémente le compteur L2[k]
+    
+    Ainsi la liste L2 garde une trace du passage de tous les elements dans la
+    fonction, et la valeur contenue dans chaque indice de la fonction L2
+    correspond au nombre de fois que ce nombre est passé dans la fonction.
+    
+    Parametres :
+    -----------
+    
+    liste_nbr : list
+    liste contenant 6 nombres entiers compris entre 1 et 49 representant les
+    6 boules tirées lors d'une edition du Loto.
+    
+    liste_resultat : list
+    Liste contenant 50 elements, initialements tous nuls et mise a jour a chaque
+    fois que la fonction est appelée.
+    La valeur contenue dans la liste pour chaque indice correspond au nombre de
+    fois que l'indice est tombé au loto jusqu'à présent.
+    
+    
+    Retour :
+    --------
+    
+    liste_resultat : list
+    Met à jour la liste décrite ci-dessus avec les 6 nombres présents dans 
+    liste_nbr, correspondant à un tirage de loto.
+    
+    
+    """
+
+    for i in range(len(liste_nbr)): 
+        nbr = int(liste_nbr[i])
+        liste_resultat[nbr] += 1
+        
+    return liste_resultat
+
+
+
+
+
+
+# Partie principale du programme :
+
+def main():
+    """
+    Fonction principale du programme, appelant toutes les autres fonctions.
+    Cette fonction ouvre le fichier, stocke ses valeurs dans une liste
+    qui sera retravailler pour ne conserver que les 6 colonnes désirées pour
+    chaque ligne, correspondant aux tirages du loto.
+    
+    Elle va ensuite incrémenter un compteur ( liste_resultat ) pour garder une
+    trace de chaque valeur contenue dans ces colonnes : 
+    chaque element de la liste indique le nombre de fois où son indice est 
+    présent dans le fichier jusqu'a present.
+    
+    La fonction affiche à l'écrant, une fois tout le fichier analysé, 
+    le nombre de fois où chaque boule est tombée au loto entre sa création et
+    2008.
+    
+    
+    
+    """
+    
+    
+    f = open("test.txt.txt") 
+    liste = separation(f) 
+    taille = len(liste)  
+
+    
+    liste_resultat = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+   
+    
+    
+
+    for i in range(1,taille): 
+        chaine = liste[i] 
+        liste_nbr = modification_liste(chaine)
+        analyse(liste_nbr, liste_resultat) 
+    
+
+    print("Lors de {} tirages : ".format(taille)) 
+    for k in range(1,50):                          
+        print(" La boule n°{} est tombée {} fois.".format(k,liste_resultat[k] ))
+
+        
+    
+# Appel de la fonction principale du programme.
+
+main()
+    
+    
